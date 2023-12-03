@@ -63,6 +63,13 @@ pub fn InputReader(comptime ReaderType: type) type {
             }
         }
 
+        /// Skips delimeters at the beginning of the input.
+        /// You might need to call this if you want to check for empty input.
+        /// Otherwise delimeters are not consumed until the first next*() call.
+        pub fn skipDelimeters(self: *Self) void {
+            self.consumeDelimeters() catch {};
+        }
+
         pub fn nextInt(self: *Self, comptime t: type) t {
             var buffer: [128]u8 = undefined;
             const word = self.nextWord(&buffer);

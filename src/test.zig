@@ -92,6 +92,14 @@ test "extra whitespace" {
     try expect(std.mem.eql(u8, input.nextWord(&buffer), "sit"));
 }
 
+test "skipDelimeters" {
+    const test_input = "     ";
+    var input = cpil.fromBuffer(test_input);
+
+    input.skipDelimeters();
+    try expect(input.eof);
+}
+
 test "initialize stdin" {
     _ = cpil.stdin();
 }
